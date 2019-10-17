@@ -41,37 +41,37 @@ const input = [
     },
 ];
 
-let obj = {}
-let day = ""
-let total = 0
+let obj = {};
+let day = "";
+let total = 0;
 
-let counter = {}
+let counter = {};
 
 findAvgOrdered = (arr, id) => {
   arr.forEach(e => {
-  const newDate = new Date(e.creationDate)
-  let parsedDate = newDate.toDateString()
-  parsedDate = parsedDate.substring(0, 3)
-  day = parsedDate
+    const newDate = new Date(e.creationDate);
+    let parsedDate = newDate.toDateString();
+    parsedDate = parsedDate.substring(0, 3);
+    day = parsedDate;
 
-  e.orderLines.forEach(el => {
-      if(el.productId === id){
-      total = total + el.quantity
-       if(obj[day] >= 1){
-      counter[day] += 1
-      } else {
-      counter[day] = 1
-     }
+    e.orderLines.forEach(el => {
+        if(el.productId === id){
+        total = total + el.quantity
+        if(obj[day] >= 1){
+        counter[day] += 1
+        } else {
+        counter[day] = 1
+      }
+      }
+    });
+
+    if(obj[parsedDate] >= 1){
+      obj[parsedDate] += total
+    } else {
+      obj[parsedDate] = total
     }
-  })
-
-  if(obj[parsedDate] >= 1){
-    obj[parsedDate] += total
-  } else {
-    obj[parsedDate] = total
-  }
-    total = 0
-  })
+      total = 0
+  });
 
   for(let key in obj){
     if(counter[key] === undefined){
@@ -79,12 +79,12 @@ findAvgOrdered = (arr, id) => {
     } else {
       obj[key] = average(obj[key], counter[key])
     }
-  }
-  return obj
-}
+  };
+  return obj;
+};
 
 average = (a, b) => {
   return Math.round(a / b)
-}
+};
 
-findAvgOrdered(input, 9872)
+findAvgOrdered(input, 9872);
